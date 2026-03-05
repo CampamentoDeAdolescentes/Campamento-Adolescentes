@@ -32,49 +32,57 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Nombre ORIGEN con brillo */
         .text-gradient-origen {
-            background: linear-gradient(135deg, #ffba08, #fff);
+            background: linear-gradient(135deg, #ffba08, #fff, #ffba08);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 186, 8, 0.4);
+            text-shadow: 0 0 40px rgba(255, 186, 8, 0.6);
+            animation: shine 3s linear infinite;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--brand-orange), #e64400);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px -5px rgba(255, 77, 0, 0.5);
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
-        .btn-primary:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 25px 40px -10px rgba(255, 77, 0, 0.7);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        /* AJUSTE RECTANGULAR PARA EL GLITCH */
-        .glitch-box {
+        /* CAJA GLITCH RECTANGULAR (MÁS BAJA) */
+        .glitch-strip {
             width: 100%;
-            max-width: 450px; /* Más ancho */
-            height: 140px;    /* Más bajo */
+            max-width: 400px;
+            height: 90px; /* Altura reducida para que sea "bajo" */
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
             position: relative;
             background: #000;
         }
 
-        .glitch-box video {
+        .glitch-strip video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(1.2) contrast(1.1);
-            opacity: 0.8;
+            opacity: 0.7;
+        }
+
+        /* Estilo del contador compacto */
+        .lock-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            filter: blur(10px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
@@ -88,33 +96,34 @@
                 <span class="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-gray-300">Abril 10, 11 & 12</span>
             </div>
 
-            <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-2 tracking-tighter">
+            <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-4 tracking-tighter">
                 CAMPAMENTO<br><span class="text-white">ADOLESCENTES</span>
             </h1>
 
-            <div class="relative w-full min-h-[250px] flex flex-col justify-center items-center mt-6 mb-8">
+            <div class="relative w-full min-h-[220px] flex flex-col justify-center items-center mt-2 mb-8">
                 
-                <div id="locked-content" class="flex flex-col items-center gap-4 transition-all duration-700 z-10 w-full">
-                    <div class="glitch-box shadow-[0_0_60px_rgba(255,77,0,0.15)]">
+                <div id="revelation-lock" class="flex flex-col items-center transition-all duration-700">
+                    <div class="glitch-strip shadow-2xl">
                         <video autoplay muted loop playsinline>
                             <source src="glitch.mp4" type="video/mp4">
                         </video>
                     </div>
 
-                    <div class="flex items-center gap-4 bg-white/5 backdrop-blur-xl border border-white/10 px-8 py-3 rounded-2xl shadow-2xl">
-                        <span id="name-timer" class="font-sans font-black text-2xl sm:text-3xl text-white tracking-[0.2em] tabular-nums">
+                    <div class="lock-badge shadow-xl">
+                        <span id="name-timer" class="font-sans font-bold text-xl sm:text-2xl text-white tracking-[0.1em] tabular-nums">
                             --
                         </span>
-                        <div class="w-px h-8 bg-white/20"></div>
-                        <svg class="w-6 h-6 text-[#ffba08] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        <div class="w-px h-6 bg-white/20"></div>
+                        <svg class="w-5 h-5 text-[#ffba08] animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
                 </div>
 
-                <div id="revealed-name" class="absolute font-bangers text-7xl sm:text-[9rem] text-gradient-origen tracking-widest uppercase opacity-0 scale-75 transition-all duration-1000 ease-out z-0">
+                <div id="revealed-name" class="absolute font-bangers text-7xl sm:text-[10rem] text-gradient-origen tracking-widest uppercase opacity-0 scale-50 transition-all duration-1000 ease-out">
                     ORIGEN
                 </div>
+
             </div>
 
             <p class="text-gray-400 text-sm sm:text-lg max-w-lg mx-auto font-light leading-relaxed px-4">
@@ -123,9 +132,7 @@
         </header>
 
         <section class="w-full max-w-3xl glass-card rounded-[2rem] p-6 sm:p-10 mb-12 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-[#ff4d00]/10 blur-[60px] rounded-full"></div>
             <h3 class="text-gray-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-6 text-center">Faltan solo</h3>
-            
             <div class="grid grid-cols-4 gap-2 sm:gap-6" id="countdown">
                 <div class="flex flex-col items-center">
                     <span id="days" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
@@ -146,63 +153,57 @@
             </div>
         </section>
 
-        <section class="w-full mb-12 group px-2 sm:px-0">
-            <div class="video-container shadow-2xl border border-white/5">
-                <video autoplay muted loop playsinline class="hover:scale-[1.01] transition-transform duration-700">
+        <section class="w-full mb-12">
+            <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-black">
+                <video autoplay muted loop playsinline class="w-full opacity-90">
                     <source src="campa.mp4" type="video/mp4">
-                    Tu navegador no soporta el video.
                 </video>
             </div>
         </section>
 
-        <section class="w-full flex flex-col items-center px-4">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjjlpnCs4_l5AYTFvlwr-VJJgupQnsudj7my3d2HmB_M4eBQ/viewform?usp=publish-editor" 
-               target="_blank"
-               class="btn-primary w-full sm:w-auto px-12 py-5 rounded-2xl text-white font-extrabold text-xl uppercase tracking-widest flex items-center justify-center gap-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        <section class="w-full flex flex-col items-center mb-20">
+            <a href="#" class="bg-gradient-to-r from-[#ff4d00] to-[#e64400] px-12 py-5 rounded-2xl text-white font-extrabold text-xl uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_10px_30px_rgba(255,77,0,0.3)]">
                 Inscribirme Ahora
             </a>
-            <p class="text-[10px] text-gray-600 uppercase tracking-[0.4em] mt-12 font-medium">
-                CUPO LIMITADO • ABRIL 2026
-            </p>
         </section>
     </div>
 
     <script>
-        // --- REVELACIÓN DEL NOMBRE (PRUEBA 1 MINUTO) ---
-        const unlockDate = new Date().getTime() + (60 * 1000); 
+        // --- REVELACIÓN DE NOMBRE ---
+        const unlockDate = new Date().getTime() + (60 * 1000); // 1 minuto de prueba
 
-        const nameTimerElement = document.getElementById("name-timer");
-        const lockedContent = document.getElementById("locked-content");
-        const revealedContainer = document.getElementById("revealed-name");
+        const timerText = document.getElementById("name-timer");
+        const lockContainer = document.getElementById("revelation-lock");
+        const nameDisplay = document.getElementById("revealed-name");
 
-        const updateNameCountdown = setInterval(function() {
+        const updateReveal = setInterval(function() {
             const now = new Date().getTime();
             const distance = unlockDate - now;
 
             if (distance <= 0) {
-                clearInterval(updateNameCountdown);
-                lockedContent.classList.add("opacity-0", "scale-95", "pointer-events-none");
+                clearInterval(updateReveal);
+                
+                // DESAPARECE TODO EL BLOQUE (VIDEO + CONTADOR + CANDADO)
+                lockContainer.classList.add("fade-out");
                 
                 setTimeout(() => {
-                    lockedContent.style.display = "none";
-                    revealedContainer.classList.remove("opacity-0", "scale-75");
-                    revealedContainer.classList.add("opacity-100", "scale-100");
-                }, 700);
+                    lockContainer.style.display = "none";
+                    
+                    // APARECE EL NOMBRE ORIGEN
+                    nameDisplay.classList.remove("opacity-0", "scale-50");
+                    nameDisplay.classList.add("opacity-100", "scale-100");
+                }, 600);
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if (distance > (60 * 60 * 1000)) {
-                nameTimerElement.innerText = `${days}D ${hours}H`;
-            } else if (distance > (60 * 1000)) {
-                nameTimerElement.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            // Mostrar solo segundos si falta menos de 1 min
+            if (distance < 60000) {
+                timerText.innerText = `${seconds} SEG`;
             } else {
-                nameTimerElement.innerText = `${seconds}s`;
+                timerText.innerText = `${minutes}:${seconds.toString().padStart(2, '0')} MIN`;
             }
         }, 1000);
 
