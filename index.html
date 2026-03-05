@@ -5,8 +5,10 @@
     <title>Campamento de Adolescentes 2026</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -30,13 +32,6 @@
             background: linear-gradient(135deg, var(--brand-orange), var(--brand-yellow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .text-gradient-origen {
-            background: linear-gradient(135deg, #ffba08, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 186, 8, 0.4);
         }
 
         .btn-primary {
@@ -78,36 +73,23 @@
 
     <div class="w-full max-w-4xl px-5 py-10 flex flex-col items-center">
         
-        <header class="text-center mb-10 w-full flex flex-col items-center">
+        <!-- 1. TÍTULO -->
+        <header class="text-center mb-10">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
                 <span class="w-2 h-2 rounded-full bg-[#ff4d00] animate-pulse"></span>
                 <span class="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-gray-300">Abril 10, 11 & 12</span>
             </div>
 
-            <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-2 tracking-tighter">
+            <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-4 tracking-tighter">
                 CAMPAMENTO<br><span class="text-white">ADOLESCENTES</span>
             </h1>
-
-            <div class="relative w-full h-[80px] sm:h-[120px] flex justify-center items-center mt-4 mb-6">
-                
-                <div id="locked-name" class="absolute flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-8 py-3 sm:py-4 rounded-2xl transition-all duration-700 z-10 shadow-[0_0_40px_rgba(255,77,0,0.2)]">
-                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#ffba08]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <span id="name-timer" class="font-sans font-bold text-2xl sm:text-4xl text-white tracking-widest tabular-nums">
-                        --
-                    </span>
-                </div>
-
-                <div id="revealed-name" class="absolute font-bangers text-7xl sm:text-[8rem] text-gradient-origen tracking-widest uppercase opacity-0 scale-50 transition-all duration-1000 ease-out z-0">
-                    ORIGEN
-                </div>
-
-            </div>
 
             <p class="text-gray-400 text-sm sm:text-lg max-w-lg mx-auto font-light leading-relaxed px-4">
                 Una pausa para conectar con amigos, la naturaleza y un encuentro real con Dios.
             </p>
         </header>
 
+        <!-- 2. CRONÓMETRO -->
         <section class="w-full max-w-3xl glass-card rounded-[2rem] p-6 sm:p-10 mb-12 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-[#ff4d00]/10 blur-[60px] rounded-full"></div>
             <h3 class="text-gray-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-6 text-center">Faltan solo</h3>
@@ -132,6 +114,7 @@
             </div>
         </section>
 
+        <!-- 3. VIDEO -->
         <section class="w-full mb-12 group px-2 sm:px-0">
             <div class="video-container shadow-2xl border border-white/5">
                 <video autoplay muted loop playsinline class="hover:scale-[1.01] transition-transform duration-700">
@@ -141,6 +124,7 @@
             </div>
         </section>
 
+        <!-- 4. BOTÓN DE INSCRIPCIÓN -->
         <section class="w-full flex flex-col items-center px-4">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjjlpnCs4_l5AYTFvlwr-VJJgupQnsudj7my3d2HmB_M4eBQ/viewform?usp=publish-editor" 
                target="_blank"
@@ -157,57 +141,9 @@
     </div>
 
     <script>
-        // --- 1. LÓGICA DEL NOMBRE SECRETO (ORIGEN) ---
-        // Para probar, lo configuramos a 1 minuto (60,000 milisegundos) desde ahora.
-        // Cuando quieras la semana real, cambia esta línea por una fecha fija, ej: new Date("March 11, 2026 20:00:00").getTime();
-        const unlockDate = new Date().getTime() + (60 * 1000); 
-
-        const nameTimerElement = document.getElementById("name-timer");
-        const lockedContainer = document.getElementById("locked-name");
-        const revealedContainer = document.getElementById("revealed-name");
-
-        const updateNameCountdown = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = unlockDate - now;
-
-            if (distance <= 0) {
-                // El tiempo llegó a cero: Detener contador y hacer la animación
-                clearInterval(updateNameCountdown);
-                
-                // Ocultar candado
-                lockedContainer.classList.add("opacity-0", "scale-110", "pointer-events-none");
-                
-                // Esperar un poquito y mostrar "ORIGEN"
-                setTimeout(() => {
-                    revealedContainer.classList.remove("opacity-0", "scale-50");
-                    revealedContainer.classList.add("opacity-100", "scale-100");
-                }, 300);
-                
-                return;
-            }
-
-            // Cálculos de tiempo
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Lógica de visualización dinámica que solicitaste
-            if (distance > (60 * 60 * 1000)) { // Falta más de 1 hora
-                nameTimerElement.innerText = `${days}d ${hours}h`;
-            } else if (distance > (60 * 1000)) { // Falta menos de 1 hr, pero más de 1 min
-                nameTimerElement.innerText = `${minutes} min`;
-            } else { // Falta menos de 1 minuto
-                nameTimerElement.innerText = `${seconds} seg`;
-            }
-
-        }, 1000);
-
-
-        // --- 2. LÓGICA DEL CRONÓMETRO GENERAL DEL CAMPAMENTO ---
         const campDate = new Date("April 11, 2026 00:00:00").getTime();
 
-        const updateCampCountdown = setInterval(function() {
+        const updateCountdown = setInterval(function() {
             const now = new Date().getTime();
             const distance = campDate - now;
 
@@ -222,7 +158,7 @@
             document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
 
             if (distance < 0) {
-                clearInterval(updateCampCountdown);
+                clearInterval(updateCountdown);
                 document.getElementById("countdown").innerHTML = "<div class='col-span-full text-2xl font-bold tracking-widest text-[#ffba08]'>¡EL DÍA HA LLEGADO!</div>";
             }
         }, 1000);
