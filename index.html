@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -31,6 +32,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Nombre ORIGEN con brillo */
         .text-gradient-origen {
             background: linear-gradient(135deg, #ffba08, #fff, #ffba08);
             background-size: 200% auto;
@@ -44,17 +46,16 @@
             to { background-position: 200% center; }
         }
 
-        /* 🔥 GLITCH AJUSTADO (más bajito y más delgado) */
+        /* CAJA GLITCH RECTANGULAR (MÁS BAJA) */
         .glitch-strip {
             width: 100%;
-            max-width: 320px;
-            height: 75px;
+            max-width: 400px;
+            height: 90px; /* Altura reducida para que sea "bajo" */
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             position: relative;
             background: #000;
-            margin: 0 auto;
         }
 
         .glitch-strip video {
@@ -64,6 +65,7 @@
             opacity: 0.7;
         }
 
+        /* Estilo del contador compacto */
         .lock-badge {
             display: flex;
             align-items: center;
@@ -84,150 +86,137 @@
         }
     </style>
 </head>
-
 <body class="antialiased min-h-screen flex flex-col items-center">
 
-<div class="w-full max-w-4xl px-5 py-10 flex flex-col items-center">
+    <div class="w-full max-w-4xl px-5 py-10 flex flex-col items-center">
         
-<header class="text-center mb-10 w-full flex flex-col items-center">
+        <header class="text-center mb-10 w-full flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-[#ff4d00] animate-pulse"></span>
+                <span class="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-gray-300">Abril 10, 11 & 12</span>
+            </div>
 
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-[#ff4d00] animate-pulse"></span>
-        <span class="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-gray-300">
-            Abril 10, 11 & 12
-        </span>
-    </div>
+            <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-4 tracking-tighter">
+                CAMPAMENTO<br><span class="text-white">ADOLESCENTES</span>
+            </h1>
 
-    <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-4 tracking-tighter">
-        CAMPAMENTO<br><span class="text-white">ADOLESCENTES</span>
-    </h1>
-
-    <div class="relative w-full min-h-[220px] flex flex-col justify-center items-center mt-2 mb-8">
+            <div class="relative w-full min-h-[220px] flex flex-col justify-center items-center mt-2 mb-8">
                 
-        <!-- 🔥 PRIMER CONTADOR (REVELACIÓN) -->
-        <div id="revelation-lock" class="flex flex-col items-center transition-all duration-700">
-                    
-            <div class="glitch-strip shadow-2xl">
-                <video autoplay muted loop playsinline>
-                    <source src="glitch.mp4" type="video/mp4">
+                <div id="revelation-lock" class="flex flex-col items-center transition-all duration-700">
+                    <div class="glitch-strip shadow-2xl">
+                        <video autoplay muted loop playsinline>
+                            <source src="glitch.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="lock-badge shadow-xl">
+                        <span id="name-timer" class="font-sans font-bold text-xl sm:text-2xl text-white tracking-[0.1em] tabular-nums">
+                            --
+                        </span>
+                        <div class="w-px h-6 bg-white/20"></div>
+                        <svg class="w-5 h-5 text-[#ffba08] animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div id="revealed-name" class="absolute font-bangers text-7xl sm:text-[10rem] text-gradient-origen tracking-widest uppercase opacity-0 scale-50 transition-all duration-1000 ease-out">
+                    ORIGEN
+                </div>
+
+            </div>
+
+            <p class="text-gray-400 text-sm sm:text-lg max-w-lg mx-auto font-light leading-relaxed px-4">
+                Una pausa para conectar con amigos, la naturaleza y un encuentro real con Dios.
+            </p>
+        </header>
+
+        <section class="w-full max-w-3xl glass-card rounded-[2rem] p-6 sm:p-10 mb-12 relative overflow-hidden">
+            <h3 class="text-gray-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-6 text-center">Faltan solo</h3>
+            <div class="grid grid-cols-4 gap-2 sm:gap-6" id="countdown">
+                <div class="flex flex-col items-center">
+                    <span id="days" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
+                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#ff4d00] font-bold mt-1">Días</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span id="hours" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
+                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Hrs</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span id="minutes" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
+                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Min</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span id="seconds" class="text-3xl sm:text-6xl font-bold tracking-tighter text-[#ffba08]">00</span>
+                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#ffba08] font-bold mt-1">Seg</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="w-full mb-12">
+            <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-black">
+                <video autoplay muted loop playsinline class="w-full opacity-90">
+                    <source src="campa.mp4" type="video/mp4">
                 </video>
             </div>
+        </section>
 
-            <div class="lock-badge shadow-xl">
-                <span id="name-timer" class="font-sans font-bold text-xl sm:text-2xl text-white tracking-[0.1em] tabular-nums">
-                    --
-                </span>
-
-                <div class="w-px h-6 bg-white/20"></div>
-
-                <svg class="w-5 h-5 text-[#ffba08] animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" 
-                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" 
-                        clip-rule="evenodd">
-                    </path>
-                </svg>
-            </div>
-        </div>
-
-        <div id="revealed-name" class="absolute font-bangers text-7xl sm:text-[10rem] text-gradient-origen tracking-widest uppercase opacity-0 scale-50 transition-all duration-1000 ease-out">
-            ORIGEN
-        </div>
-
+        <section class="w-full flex flex-col items-center mb-20">
+            <a href="#" class="bg-gradient-to-r from-[#ff4d00] to-[#e64400] px-12 py-5 rounded-2xl text-white font-extrabold text-xl uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_10px_30px_rgba(255,77,0,0.3)]">
+                Inscribirme Ahora
+            </a>
+        </section>
     </div>
 
-</header>
+    <script>
+        // --- REVELACIÓN DE NOMBRE ---
+        const unlockDate = new Date().getTime() + (60 * 1000); // 1 minuto de prueba
 
-<!-- 🔥 SEGUNDO CONTADOR (CAMPAMENTO) -->
-<section class="w-full max-w-3xl rounded-[2rem] p-6 sm:p-10 mb-12 relative overflow-hidden border border-white/10">
-    <h3 class="text-gray-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-6 text-center">
-        Faltan solo
-    </h3>
+        const timerText = document.getElementById("name-timer");
+        const lockContainer = document.getElementById("revelation-lock");
+        const nameDisplay = document.getElementById("revealed-name");
 
-    <div class="grid grid-cols-4 gap-2 sm:gap-3" id="countdown">
-        <div class="flex flex-col items-center">
-            <span id="days" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
-            <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#ff4d00] font-bold mt-1">Días</span>
-        </div>
+        const updateReveal = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = unlockDate - now;
 
-        <div class="flex flex-col items-center">
-            <span id="hours" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
-            <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Hrs</span>
-        </div>
+            if (distance <= 0) {
+                clearInterval(updateReveal);
+                
+                // DESAPARECE TODO EL BLOQUE (VIDEO + CONTADOR + CANDADO)
+                lockContainer.classList.add("fade-out");
+                
+                setTimeout(() => {
+                    lockContainer.style.display = "none";
+                    
+                    // APARECE EL NOMBRE ORIGEN
+                    nameDisplay.classList.remove("opacity-0", "scale-50");
+                    nameDisplay.classList.add("opacity-100", "scale-100");
+                }, 600);
+                return;
+            }
 
-        <div class="flex flex-col items-center">
-            <span id="minutes" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
-            <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Min</span>
-        </div>
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        <div class="flex flex-col items-center">
-            <span id="seconds" class="text-3xl sm:text-6xl font-bold tracking-tighter text-[#ffba08]">00</span>
-            <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#ffba08] font-bold mt-1">Seg</span>
-        </div>
-    </div>
-</section>
+            // Mostrar solo segundos si falta menos de 1 min
+            if (distance < 60000) {
+                timerText.innerText = `${seconds} SEG`;
+            } else {
+                timerText.innerText = `${minutes}:${seconds.toString().padStart(2, '0')} MIN`;
+            }
+        }, 1000);
 
-
-<!-- VIDEO GRANDE INTACTO -->
-<section class="w-full mb-12">
-    <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-black">
-        <video autoplay muted loop playsinline class="w-full opacity-90">
-            <source src="campa.mp4" type="video/mp4">
-        </video>
-    </div>
-</section>
-
-<!-- 🔥 BOTÓN INSCRIBIRSE -->
-<div class="w-full flex justify-center mb-20">
-    <a href="#inscripcion"
-       class="inline-block
-              bg-gradient-to-r from-[#ff4d00] to-[#ffba08]
-              hover:scale-110
-              transition-all duration-300
-              px-16 py-6
-              rounded-3xl
-              text-2xl
-              sm:text-3xl
-              font-extrabold
-              tracking-[0.2em]
-              text-black
-              shadow-[0_0_40px_rgba(255,186,8,0.5)]">
-        INSCRIBIRSE
-    </a>
-</div>
-
-    </a>
-</div>
-
-<script>
-const unlockDate = new Date().getTime() + (60 * 1000);
-const timerText = document.getElementById("name-timer");
-const lockContainer = document.getElementById("revelation-lock");
-const nameDisplay = document.getElementById("revealed-name");
-
-setInterval(function() {
-    const distance = unlockDate - new Date().getTime();
-    if (distance <= 0) {
-        lockContainer.classList.add("fade-out");
-        setTimeout(() => {
-            lockContainer.style.display = "none";
-            nameDisplay.classList.remove("opacity-0","scale-50");
-            nameDisplay.classList.add("opacity-100","scale-100");
-        },600);
-        return;
-    }
-    const s = Math.floor((distance % (1000 * 60)) / 1000);
-    timerText.innerText = s + " SEG";
-},1000);
-
-const campDate = new Date("April 11, 2026 00:00:00").getTime();
-setInterval(function() {
-    const d = campDate - new Date().getTime();
-    document.getElementById("days").innerText = Math.floor(d / 86400000).toString().padStart(2,'0');
-    document.getElementById("hours").innerText = Math.floor((d % 86400000) / 3600000).toString().padStart(2,'0');
-    document.getElementById("minutes").innerText = Math.floor((d % 3600000) / 60000).toString().padStart(2,'0');
-    document.getElementById("seconds").innerText = Math.floor((d % 60000) / 1000).toString().padStart(2,'0');
-},1000);
-</script>
-
+        // --- CONTADOR GENERAL ---
+        const campDate = new Date("April 11, 2026 00:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = campDate - now;
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
+    </script>
 </body>
 </html>
