@@ -15,6 +15,10 @@
             --brand-yellow: #ffba08;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #030303;
             color: #ffffff;
@@ -22,6 +26,9 @@
             background-image: 
                 radial-gradient(circle at 10% 10%, rgba(255, 77, 0, 0.08) 0%, transparent 35%),
                 radial-gradient(circle at 90% 90%, rgba(255, 186, 8, 0.08) 0%, transparent 35%);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
         .font-bangers { font-family: 'Bangers', cursive; }
@@ -30,15 +37,15 @@
             background: linear-gradient(135deg, var(--brand-orange), var(--brand-yellow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Nombre ORIGEN con brillo */
         .text-gradient-origen {
             background: linear-gradient(135deg, #ffba08, #fff, #ffba08);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(255, 186, 8, 0.6);
+            background-clip: text;
             animation: shine 3s linear infinite;
         }
 
@@ -46,11 +53,9 @@
             to { background-position: 200% center; }
         }
 
-        /* CAJA GLITCH RECTANGULAR (MÁS BAJA) */
         .glitch-strip {
-            width: 100%;
-            max-width: 400px;
-            height: 90px; /* Altura reducida para que sea "bajo" */
+            width: 260px;
+            height: 75px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
@@ -65,112 +70,252 @@
             opacity: 0.7;
         }
 
-        /* Estilo del contador compacto */
         .lock-badge {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
+            width: 260px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            padding: 8px 20px;
+            padding: 10px 20px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
-        .fade-out {
-            opacity: 0;
-            transform: scale(0.95);
-            filter: blur(10px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .countdown-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 2rem;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            width: 100%;
+            max-width: 720px;
+            margin-bottom: 3rem;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 2vw, 1.5rem);
+        }
+
+        .countdown-number {
+            font-size: clamp(2rem, 7vw, 4rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .countdown-label {
+            font-size: clamp(8px, 1.5vw, 10px);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .main-title {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(3.2rem, 11vw, 9rem);
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .revelation-area {
+            position: relative;
+            width: 100%;
+            min-height: clamp(160px, 25vw, 220px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5rem 0 2rem;
+        }
+
+        .revealed-name {
+            position: absolute;
+            font-family: 'Bangers', cursive;
+            font-size: clamp(4rem, 14vw, 10rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .video-section {
+            width: 100%;
+            margin-bottom: 3rem;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: #000;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+
+        .video-section video {
+            width: 100%;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(to right, #ff4d00, #e64400);
+            padding: clamp(0.9rem, 2.5vw, 1.25rem) clamp(2rem, 6vw, 3rem);
+            border-radius: 1rem;
+            color: white;
+            font-weight: 800;
+            font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255,77,0,0.3);
+            transition: transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 1.5rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .date-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff4d00;
+            animation: blink 1.5s infinite;
+        }
+
+        .date-badge .label {
+            font-size: clamp(9px, 1.5vw, 11px);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #d1d5db;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col items-center">
+<body>
 
-    <div class="w-full max-w-4xl px-5 py-10 flex flex-col items-center">
+    <div class="page-wrapper">
         
-        <header class="text-center mb-10 w-full flex flex-col items-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
-                <span class="w-2 h-2 rounded-full bg-[#ff4d00] animate-pulse"></span>
-                <span class="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-gray-300">Abril 10, 11 & 12</span>
+        <header style="text-align:center; width:100%; display:flex; flex-direction:column; align-items:center; margin-bottom: 2.5rem;">
+
+            <div class="date-badge">
+                <span class="dot"></span>
+                <span class="label">Abril 10, 11 &amp; 12</span>
             </div>
 
-            <h1 class="font-bangers text-6xl sm:text-8xl md:text-9xl text-gradient uppercase leading-[0.9] mb-4 tracking-tighter">
-                CAMPAMENTO<br><span class="text-white">ADOLESCENTES</span>
+            <h1 class="main-title text-gradient">
+                CAMPAMENTO<br><span style="color:#fff; -webkit-text-fill-color:#fff;">ADOLESCENTES</span>
             </h1>
 
-            <div class="relative w-full min-h-[220px] flex flex-col justify-center items-center mt-2 mb-8">
+            <div class="revelation-area">
                 
-                <div id="revelation-lock" class="flex flex-col items-center transition-all duration-700">
-                    <div class="glitch-strip shadow-2xl">
+                <div id="revelation-lock" style="display:flex; flex-direction:column; align-items:center; transition: all 0.7s ease; width:100%; max-width:420px;">
+                    <div class="glitch-strip" style="box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
                         <video autoplay muted loop playsinline>
                             <source src="glitch.mp4" type="video/mp4">
                         </video>
                     </div>
 
-                    <div class="lock-badge shadow-xl">
-                        <span id="name-timer" class="font-sans font-bold text-xl sm:text-2xl text-white tracking-[0.1em] tabular-nums">
+                    <div class="lock-badge" style="box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+                        <span id="name-timer" style="font-weight:700; font-size:clamp(1rem,3vw,1.4rem); color:#fff; letter-spacing:0.1em; font-variant-numeric:tabular-nums;">
                             --
                         </span>
-                        <div class="w-px h-6 bg-white/20"></div>
-                        <svg class="w-5 h-5 text-[#ffba08] animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <div style="width:1px; height:24px; background:rgba(255,255,255,0.2);"></div>
+                        <svg style="width:20px;height:20px;color:#ffba08;animation:pulse-icon 1.5s infinite;flex-shrink:0;" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
                 </div>
 
-                <div id="revealed-name" class="absolute font-bangers text-7xl sm:text-[10rem] text-gradient-origen tracking-widest uppercase opacity-0 scale-50 transition-all duration-1000 ease-out">
+                <div id="revealed-name" class="revealed-name text-gradient-origen" style="opacity:0; transform:scale(0.5); transition: all 1s cubic-bezier(0.34,1.56,0.64,1);">
                     ORIGEN
                 </div>
 
             </div>
 
-            <p class="text-gray-400 text-sm sm:text-lg max-w-lg mx-auto font-light leading-relaxed px-4">
+            <p style="color:#9ca3af; font-size:clamp(0.85rem,2.2vw,1.1rem); max-width:480px; font-weight:300; line-height:1.7; padding:0 0.5rem; text-align:center; margin:0;">
                 Una pausa para conectar con amigos, la naturaleza y un encuentro real con Dios.
             </p>
         </header>
 
-        <section class="w-full max-w-3xl glass-card rounded-[2rem] p-6 sm:p-10 mb-12 relative overflow-hidden">
-            <h3 class="text-gray-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-6 text-center">Faltan solo</h3>
-            <div class="grid grid-cols-4 gap-2 sm:gap-6" id="countdown">
-                <div class="flex flex-col items-center">
-                    <span id="days" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
-                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#ff4d00] font-bold mt-1">Días</span>
+        <!-- COUNTDOWN -->
+        <div class="countdown-card">
+            <p style="color:#6b7280; font-weight:700; text-transform:uppercase; letter-spacing:0.3em; font-size:10px; text-align:center; margin:0 0 1.5rem 0;">Faltan solo</p>
+            <div class="countdown-grid">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span id="days" class="countdown-number">00</span>
+                    <span class="countdown-label" style="color:#ff4d00;">Días</span>
                 </div>
-                <div class="flex flex-col items-center">
-                    <span id="hours" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
-                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Hrs</span>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-label" style="color:#6b7280;">Hrs</span>
                 </div>
-                <div class="flex flex-col items-center">
-                    <span id="minutes" class="text-3xl sm:text-6xl font-bold tracking-tighter">00</span>
-                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Min</span>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-label" style="color:#6b7280;">Min</span>
                 </div>
-                <div class="flex flex-col items-center">
-                    <span id="seconds" class="text-3xl sm:text-6xl font-bold tracking-tighter text-[#ffba08]">00</span>
-                    <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#ffba08] font-bold mt-1">Seg</span>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span id="seconds" class="countdown-number" style="color:#ffba08;">00</span>
+                    <span class="countdown-label" style="color:#ffba08;">Seg</span>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="w-full mb-12">
-            <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/5 bg-black">
-                <video autoplay muted loop playsinline class="w-full opacity-90">
-                    <source src="campa.mp4" type="video/mp4">
-                </video>
-            </div>
-        </section>
+        <!-- VIDEO -->
+        <div class="video-section">
+            <video autoplay muted loop playsinline>
+                <source src="campa.mp4" type="video/mp4">
+            </video>
+        </div>
 
-        <section class="w-full flex flex-col items-center mb-20">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjjlpnCs4_l5AYTFvlwr-VJJgupQnsudj7my3d2HmB_M4eBQ/viewform?usp=dialog" target="_blank" class="bg-gradient-to-r from-[#ff4d00] to-[#e64400] px-12 py-5 rounded-2xl text-white font-extrabold text-xl uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_10px_30px_rgba(255,77,0,0.3)]">
+        <!-- CTA -->
+        <div style="width:100%; display:flex; justify-content:center; margin-bottom:3rem;">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjjlpnCs4_l5AYTFvlwr-VJJgupQnsudj7my3d2HmB_M4eBQ/viewform?usp=dialog" target="_blank" class="cta-btn">
                 Inscribirme Ahora
             </a>
-        </section>
+        </div>
+
     </div>
 
     <script>
         // --- REVELACIÓN DE NOMBRE ---
-        const unlockDate = new Date().getTime() + (60 * 1000); // 1 minuto de prueba
+        const unlockDate = new Date().getTime() + (60 * 1000);
 
         const timerText = document.getElementById("name-timer");
         const lockContainer = document.getElementById("revelation-lock");
@@ -183,15 +328,15 @@
             if (distance <= 0) {
                 clearInterval(updateReveal);
                 
-                // DESAPARECE TODO EL BLOQUE (VIDEO + CONTADOR + CANDADO)
-                lockContainer.classList.add("fade-out");
+                lockContainer.style.opacity = "0";
+                lockContainer.style.transform = "scale(0.95)";
+                lockContainer.style.filter = "blur(10px)";
+                lockContainer.style.transition = "all 0.6s cubic-bezier(0.4,0,0.2,1)";
                 
                 setTimeout(() => {
                     lockContainer.style.display = "none";
-                    
-                    // APARECE EL NOMBRE ORIGEN
-                    nameDisplay.classList.remove("opacity-0", "scale-50");
-                    nameDisplay.classList.add("opacity-100", "scale-100");
+                    nameDisplay.style.opacity = "1";
+                    nameDisplay.style.transform = "scale(1)";
                 }, 600);
                 return;
             }
@@ -199,7 +344,6 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Mostrar solo segundos si falta menos de 1 min
             if (distance < 60000) {
                 timerText.innerText = `${seconds} SEG`;
             } else {
