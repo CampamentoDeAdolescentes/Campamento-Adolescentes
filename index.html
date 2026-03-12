@@ -2,10 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
     <title>Campamento de Adolescentes 2026</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>*, *::before, *::after { border: 0; }</style>
     <style>
         :root {
             --brand-orange: #ff4d00;
@@ -67,6 +68,11 @@
             font-family: 'Bangers', cursive;
             font-size: clamp(3.2rem,11vw,9rem);
             line-height: 0.9; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 1rem;
+        }
+        @media (max-width: 600px) {
+            .main-title {
+                font-size: 18vw;
+            }
         }
         .revelation-area {
             position: relative; width: 100%; min-height: clamp(160px,25vw,220px);
